@@ -1,0 +1,23 @@
+fx_version 'cerulean'
+game 'gta5'
+
+author 'Khazadream'
+description 'Prop menu to visualize props'
+version '0.0.1'
+
+lua54 'yes'
+
+client_scripts { 
+    '@menuv/menuv.lua',
+    'client/*.lua',
+}
+server_scripts { 
+    'server/*.lua',
+    '@oxmysql/lib/MySQL.lua',
+}
+
+-- dependencies {
+--     'qb-core',
+--     'oxmysql',
+--     'menuv'
+-- }

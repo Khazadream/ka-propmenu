@@ -9,6 +9,7 @@ lua54 'yes'
 
 client_scripts { 
     '@menuv/menuv.lua',
+    'config.lua',
     'client/*.lua',
 }
 server_scripts { 

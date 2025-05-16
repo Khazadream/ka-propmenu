@@ -1,15 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
-local menu = MenuV:CreateMenu('Prop Visualizer', 'View and Place Props', 'topright', 255, 0, 0, 'size-125', 'default', 'menuv', 'example_namespace')
-local props = {
-    {label = 'Cardboard Box', model = 'prop_boxpile_07d', price = 100},
-    {label = 'Traffic Cone', model = 'prop_roadcone02a', price = 200},
-    {label = 'Barrier', model = 'prop_barrier_work05', price = 300},
-    {label = 'Chair', model = 'prop_chair_01a', price = 400},
-    {label = 'Table', model = 'prop_table_03', price = 500},
-    -- Add more props as needed
-}
-
+local ped = nil
+local menu = MenuV:CreateMenu(Config.MenuTitle, Config.MenuDescription, Config.MenuLocation, Config.MenutColorR, Config.MenutColorG, Config.MenutColorB, Config.MenuSize, Config.MenuFont, 'menuv', Config.MenuNamespace)
+--local menu = MenuV:CreateMenu('Prop Visualizer', 'View and Place Props', 'topright', 255, 0, 0, 'size-125', 'default', 'menuv', 'example_namespace')
 local previewProp = nil
 
 -- Function to preview prop
@@ -49,34 +41,13 @@ local function PreviewProp(model)
     FreezeEntityPosition(previewProp, true)
 end
 
--- Function to place prop permanently
--- local function PlaceProp()
---     if previewProp then
---         -- Get the preview prop's position and rotation
---         local pos = GetEntityCoords(previewProp)
---         local rot = GetEntityRotation(previewProp)
---         local model = GetEntityModel(previewProp)
-        
---         -- Delete preview prop
---         DeleteObject(previewProp)
-        
---         -- Create permanent prop
---         local permanentProp = CreateObject(model, pos.x, pos.y, pos.z, true, false, false)
---         SetEntityRotation(permanentProp, rot.x, rot.y, rot.z, 2, true)
---         FreezeEntityPosition(permanentProp, true)
---         SetEntityCollision(permanentProp, true, true)
-        
---         previewProp = nil
---     end
--- end
-
 -- Create menu items for each prop
-for _, prop in ipairs(props) do
+for _, prop in ipairs(Config.Props) do
     local menuItem = menu:AddButton({
-        icon = '🗿',
+        icon = Config.MenuItemIcon,
         label = prop.label .. ' - $' .. prop.price,
         value = prop,
-        description = 'Press ENTER to buy ' .. prop.label
+        description = Config.MenuItemDescription .. prop.label
     })
 
     -- Preview prop when hovering over menu item
@@ -86,15 +57,14 @@ for _, prop in ipairs(props) do
 
     -- Place prop when selecting menu item
     menuItem:On('select', function()
-        -- PlaceProp()
-        --TODO: Give the player the prop item corresponding to the prop they selected
+        TriggerServerEvent('ka-propmenu:server:BuyProp', prop.model, prop.price, prop.label)
     end)
 
 end
 
 -- Visualize the first prop when opening the menu
 menu:On('open', function()
-    PreviewProp(props[1].model)
+    PreviewProp(Config.Props[1].model)
 end)
 
 -- Cleanup preview prop when closing menu
@@ -105,9 +75,78 @@ menu:On('close', function()
     end
 end)
 
--- Register command to open menu
-RegisterCommand('propsmenu', function()
-    menu:Open()
+local function SpawnPed()
+    local coords = Config.PedLocation
+    local model = Config.PedModel
+    
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+        Wait(0)
+    end
+
+    ped = CreatePed(0, model, coords.x, coords.y, coords.z, coords.w, false, false)
+    SetEntityAsMissionEntity(ped, true, true)
+    SetBlockingOfNonTemporaryEvents(ped, true)
+    SetPedDiesWhenInjured(ped, false)
+    SetPedCanPlayAmbientAnims(ped, true)
+    SetPedCanRagdollFromPlayerImpact(ped, false)
+    SetEntityInvincible(ped, true)
+    FreezeEntityPosition(ped, true)
+    SetModelAsNoLongerNeeded(model)
+
+    exports['qb-target']:AddTargetEntity(ped, {
+        options = {
+            {
+            type = "client",
+            icon = Config.TargetIcon,
+            label = Config.TargetLabel,
+            action = function()
+                menu:Open()
+            end
+            },
+    },
+        distance = Config.TargetDistance
+    })
+
+end
+
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    SpawnPed()
+end)
+
+AddEventHandler('onResourceStart', function(resource)
+    if resource == GetCurrentResourceName() then
+        SpawnPed()
+    end
+end)
+
+AddEventHandler('QBCore:Client:OnPlayerUnload', function()
+    if previewProp then
+        DeleteObject(previewProp)
+        previewProp = nil
+    end
+    if ped then
+        DeleteEntity(ped)
+        ped = nil
+    end
+end)
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource == GetCurrentResourceName() then
+        if previewProp then
+            DeleteObject(previewProp)
+            previewProp = nil
+        end
+        if ped then
+            DeleteEntity(ped)
+            ped = nil
+        end
+    end
+    
+end)
+
+RegisterNetEvent('ka-propmenu:client:ClosePropMenu', function()
+    menu:Close()
 end)
 
 -- Create thread for preview prop rotation

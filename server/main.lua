@@ -1,0 +1,18 @@
+QBCore = exports['qb-core']:GetCoreObject()
+
+RegisterNetEvent('ka-propmenu:server:BuyProp', function(model, price, label)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+
+    if exports.ox_inventory:RemoveItem(src, 'money', price) then
+        if exports.ox_inventory:AddItem(src, 'testplaceable', 1, {label = label, propName = model}) then
+            TriggerClientEvent('QBCore:Notify', src, 'You have bought a ' .. label .. ' prop.', 'success')
+        else
+            TriggerClientEvent('QBCore:Notify', src, 'You do not have enough space in your inventory.', 'error')
+        end
+    else
+        TriggerClientEvent('QBCore:Notify', src, 'You do not have enough money to buy this prop.', 'error')
+    end
+
+    TriggerClientEvent('ka-propmenu:client:ClosePropMenu', src)
+end)

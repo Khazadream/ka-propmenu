@@ -24,9 +24,11 @@ Config.MenuSize = 'size-125'
 Config.MenuFont = 'default'
 
 Config.MenuNamespace = 'prop_visualizer'
+Config.MenuNamespace2 = 'prop_visualizer2'
 
 Config.MenuItemIcon = '🗿'
 Config.MenuItemDescription = 'Appuyez sur ENTRER pour acheter '
+Config.MenuItemDescription2 = 'Appuyez sur ENTRER pour découvrir la catégorie '
 
 
 -- Config for the props
@@ -148,4 +150,57 @@ Config.Props = {
     {label = 'Séchoir mural',             model = 'prop_wall_dryer',                price = 250},
     {label = 'Patère murale',             model = 'prop_wall_hook',                 price = 80}
     -- Add more props as needed
+}
+
+Config.Props2 = {
+    ["LSPD"] = {
+        {label = 'Box de carton',               model = 'prop_boxpile_07d',                 price = 100},
+        {label = 'Cone de circulation',         model = 'prop_roadcone02a',                 price = 200},
+        {label = 'Barrière',                    model = 'prop_barrier_work05',              price = 300},
+        {label = 'Chaise',                      model = 'prop_chair_01a',                   price = 400},
+    },
+    ["Tables"] = {
+        {label = 'Table',                       model = 'prop_table_03',                    price = 500},
+        {label = 'Canapé',                      model = 'prop_couch_01',                    price = 800},
+        {label = 'Lit',                         model = 'prop_bed_01',                      price = 1000},
+    },
+    ["Canapés"] = {
+        {label = 'Canapé',                      model = 'prop_couch_01',                    price = 800},
+    },
+    ["Lits"] = {
+        {label = 'Lit',                         model = 'prop_bed_01',                      price = 1000},
+    },
+    ["Bureaux"] = {
+        {label = 'Bureau',                      model = 'prop_desk_01',                     price = 750},
+    },
+    ["Armoires"] = {
+        {label = 'Armoire',                     model = 'prop_cabinet_01',                  price = 600},
+    },
+    ["Télévisions"] = {
+        {label = 'Télévision',                  model = 'prop_tv_flat_01',                  price = 1200},
+    },
+    ["Lampes"] = {
+        {label = 'Lampe',                       model = 'prop_lamp_01',                     price = 300},
+    },
+    ["Plantes"] = {
+        {label = 'Plante',                      model = 'prop_plant_int_01a',              price = 250},
+    },
+    ["Tapis"] = {
+        {label = 'Tapis',                       model = 'prop_rug_01',                      price = 400},
+    },
+    ["Bibliothèques"] = {
+        {label = 'Bibliothèque',               model = 'prop_bookshelf_01',                price = 900},
+    },
+    ["Cuisines"] = {
+        {label = 'Micro-ondes',                model = 'prop_microwave_1',                 price = 450},
+        {label = 'Réfrigérateur',              model = 'prop_fridge_01',                   price = 1500},
+        {label = 'Machine à laver',            model = 'prop_washing_machine_1',           price = 1300},
+    },
+    ["Poubelles"] = {
+        {label = 'Poubelle',                   model = 'prop_bin_01a',                     price = 150},
+    },
+    
+    
+
+
 }

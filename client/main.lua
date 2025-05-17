@@ -2,10 +2,10 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local ped = nil
 local menu = MenuV:CreateMenu(Config.MenuTitle, Config.MenuDescription, Config.MenuLocation, Config.MenutColorR, Config.MenutColorG, Config.MenutColorB, Config.MenuSize, Config.MenuFont, 'menuv', Config.MenuNamespace)
 --local menu = MenuV:CreateMenu('Prop Visualizer', 'View and Place Props', 'topright', 255, 0, 0, 'size-125', 'default', 'menuv', 'example_namespace')
-local previewProp = nil
+previewProp = nil
 
 -- Function to preview prop
-local function PreviewProp(model)
+function PreviewProp(model)
     -- Delete existing preview prop if there is one
     if previewProp then
         DeleteObject(previewProp)
@@ -101,7 +101,7 @@ local function SpawnPed()
             icon = Config.TargetIcon,
             label = Config.TargetLabel,
             action = function()
-                menu:Open()
+                menu2:Open()
             end
             },
     },
@@ -147,6 +147,10 @@ end)
 
 RegisterNetEvent('ka-propmenu:client:ClosePropMenu', function()
     menu:Close()
+end)
+
+RegisterNetEvent('ka-propmenu:client:OpenPropMenu', function()
+    menu:Open()
 end)
 
 -- Create thread for preview prop rotation

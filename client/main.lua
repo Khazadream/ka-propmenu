@@ -9,6 +9,7 @@ function PreviewProp(model)
     -- Delete existing preview prop if there is one
     if previewProp then
         DeleteObject(previewProp)
+        DeleteEntity(previewProp)
         previewProp = nil
     end
 

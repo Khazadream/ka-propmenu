@@ -14,8 +14,11 @@ for key, prop in pairs(Config.Props2) do
 
     -- Place prop when selecting menu item
     menuItem2:On('select', function()
+        --menu2:Close()
         subMenu[key]:Open()
     end)
+
+       
 
     for _, propp in pairs(prop) do
         local subMenuItem = subMenu[key]:AddButton({
@@ -37,17 +40,21 @@ for key, prop in pairs(Config.Props2) do
     end
 
     -- Visualize the first prop when opening the menu
-    subMenu[key]:On('open', function()
-        PreviewProp(prop[1].model)
-    end)
-    
+    -- subMenu[key]:On('open', function()
+    --     print('open: ', prop[1].model)
+    --     PreviewProp(prop[1].model)
+    -- end) 
+
     -- Cleanup preview prop when closing menu
     subMenu[key]:On('close', function()
         if previewProp then
             DeleteObject(previewProp)
+            DeleteEntity(previewProp)
             previewProp = nil
         end
     end)
+    
+    
 
 end
 

@@ -1,17 +1,5 @@
 Config = {}
 
--- Config for the ped
-Config.PedModel = `a_m_m_business_01`
-Config.PedLocation = vector4(2761.31, 3495.36, 54.39, 252.56)
-
--- Config for the target
-Config.TargetLabel = 'Achetez des Props'
-Config.TargetIcon = 'fas fa-shop'
-Config.TargetDistance = 2.0
-
--- Config for the prop spawn location
-Config.PropSpawnLocation = vector3(2770.48, 3497.06, 55.24)
-
 -- Config for the menu
 Config.MenuTitle = 'Youtool'
 Config.MenuDescription = 'Preview & Achat de Props'
@@ -30,8 +18,20 @@ Config.MenuItemIcon = '🗿'
 Config.MenuItemDescription = 'Appuyez sur ENTRER pour acheter '
 Config.MenuItemDescription2 = 'Appuyez sur ENTRER pour découvrir la catégorie '
 
+-- Config shops locations
+Config.Shops = {
+    [1] = {
+        coords = vector4(2761.31, 3495.36, 54.39, 252.56),
+        model = `a_m_m_business_01`,
+        targetLabel = 'Achetez des Props',
+        targetIcon = 'fas fa-shop',
+        targetDistance = 2.0,
+        previewCoords = vector3(2770.48, 3497.06, 55.24),
+    },
+    -- Add more shops as needed
+}
 
--- Config for the props
+-- Config for the props list (only used for /proplist_menu command)
 Config.Props = {
     {label = 'Box de carton',               model = 'prop_boxpile_07d',                 price = 100},
     {label = 'Cone de circulation',         model = 'prop_roadcone02a',                 price = 200},

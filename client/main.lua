@@ -1,8 +1,10 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local ped = nil
+
+local ped = {}
 local menu = MenuV:CreateMenu(Config.MenuTitle, Config.MenuDescription, Config.MenuLocation, Config.MenutColorR, Config.MenutColorG, Config.MenutColorB, Config.MenuSize, Config.MenuFont, 'menuv', Config.MenuNamespace)
---local menu = MenuV:CreateMenu('Prop Visualizer', 'View and Place Props', 'topright', 255, 0, 0, 'size-125', 'default', 'menuv', 'example_namespace')
+
 previewProp = nil
+actualShop = nil
 
 -- Function to preview prop
 function PreviewProp(model)
@@ -19,18 +21,21 @@ function PreviewProp(model)
         Wait(0)
     end
 
-    -- Get player position
-    local playerPed = PlayerPedId()
-    --local coords = GetEntityCoords(playerPed)
-    
-    -- Spawn the preview prop in front of the player
-    -- local forward = GetEntityForwardVector(playerPed)
-    -- local spawnPos = vector3(
-    --     coords.x + (forward.x * 2),
-    --     coords.y + (forward.y * 2),
-    --     coords.z
-    -- )
-    local spawnPos = vector3(2770.48, 3497.06, 55.24)
+    local spawnPos = nil
+    if actualShop == nil then
+        -- Get player position
+        local playerPed = PlayerPedId()
+        local coords = GetEntityCoords(playerPed)
+        -- Spawn the preview prop in front of the player
+        local forward = GetEntityForwardVector(playerPed)
+        spawnPos = vector3(
+            coords.x + (forward.x * 2),
+            coords.y + (forward.y * 2),
+            coords.z
+        )
+    else
+        spawnPos = Config.Shops[actualShop].previewCoords
+    end
 
     previewProp = CreateObject(model, spawnPos.x, spawnPos.y, spawnPos.z, true, false, false)
     SetModelAsNoLongerNeeded(model)
@@ -58,9 +63,9 @@ for _, prop in ipairs(Config.Props) do
 
     -- Place prop when selecting menu item
     menuItem:On('select', function()
-        TriggerServerEvent('ka-propmenu:server:BuyProp', prop.model, prop.price, prop.label)
+        local shopNumber = actualShop
+        TriggerServerEvent('ka-propmenu:server:BuyProp', prop.model, prop.price, prop.label, shopNumber)
     end)
-
 end
 
 -- Visualize the first prop when opening the menu
@@ -76,21 +81,18 @@ menu:On('close', function()
     end
 end)
 
-local function SpawnPed()
-    local coords = Config.PedLocation
-    local model = Config.PedModel
-    
+local function SpawnPed(coords, model, targetLabel, targetIcon, targetDistance, shopNumber)
     RequestModel(model)
     while not HasModelLoaded(model) do
         Wait(0)
     end
 
-    ped = CreatePed(0, model, coords.x, coords.y, coords.z, coords.w, false, false)
-    SetEntityAsMissionEntity(ped, true, true)
-    SetBlockingOfNonTemporaryEvents(ped, true)
-    SetPedDiesWhenInjured(ped, false)
-    SetPedCanPlayAmbientAnims(ped, true)
-    SetPedCanRagdollFromPlayerImpact(ped, false)
+    ped[shopNumber] = CreatePed(0, model, coords.x, coords.y, coords.z, coords.w, false, false)
+    SetEntityAsMissionEntity(ped[shopNumber], true, true)
+    SetBlockingOfNonTemporaryEvents(ped[shopNumber], true)
+    SetPedDiesWhenInjured(ped[shopNumber], false)
+    SetPedCanPlayAmbientAnims(ped[shopNumber], true)
+    SetPedCanRagdollFromPlayerImpact(ped[shopNumber], false)
     SetEntityInvincible(ped, true)
     FreezeEntityPosition(ped, true)
     SetModelAsNoLongerNeeded(model)
@@ -99,25 +101,31 @@ local function SpawnPed()
         options = {
             {
             type = "client",
-            icon = Config.TargetIcon,
-            label = Config.TargetLabel,
+            icon = targetIcon,
+            label = targetLabel,
             action = function()
+                actualShop = shopNumber
                 menu2:Open()
             end
             },
     },
-        distance = Config.TargetDistance
+        distance = targetDistance
     })
+end
 
+local function initPedAndTarget()
+    for k, v in pairs(Config.Shops) do
+        SpawnPed(v.coords, v.model, v.targetLabel, v.targetIcon, v.targetDistance, k)
+    end
 end
 
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-    SpawnPed()
+    initPedAndTarget()
 end)
 
 AddEventHandler('onResourceStart', function(resource)
     if resource == GetCurrentResourceName() then
-        SpawnPed()
+        initPedAndTarget()
     end
 end)
 
@@ -130,6 +138,8 @@ AddEventHandler('QBCore:Client:OnPlayerUnload', function()
         DeleteEntity(ped)
         ped = nil
     end
+    menu:ClearItems()
+    menu2:ClearItems()
 end)
 
 AddEventHandler('onResourceStop', function(resource)
@@ -142,15 +152,19 @@ AddEventHandler('onResourceStop', function(resource)
             DeleteEntity(ped)
             ped = nil
         end
+        menu:ClearItems()
+        menu2:ClearItems()
     end
     
 end)
 
 RegisterNetEvent('ka-propmenu:client:ClosePropMenu', function()
+    actualShop = nil
     menu:Close()
 end)
 
 RegisterNetEvent('ka-propmenu:client:OpenPropMenu', function()
+    actualShop = nil
     menu:Open()
 end)
 

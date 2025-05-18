@@ -10,15 +10,13 @@ for key, prop in pairs(Config.Props2) do
         description = Config.MenuItemDescription2 .. key
     })
 
+    -- Create submenu for each prop category
     subMenu[key] = MenuV:CreateMenu(key, "Catégorie : " .. key, Config.MenuLocation, Config.MenutColorR, Config.MenutColorG, Config.MenutColorB, Config.MenuSize, Config.MenuFont, 'menuv', 'subMenu_' .. key)
 
-    -- Place prop when selecting menu item
+    -- Open submenu when selecting menu item
     menuItem2:On('select', function()
-        --menu2:Close()
         subMenu[key]:Open()
     end)
-
-       
 
     for _, propp in pairs(prop) do
         local subMenuItem = subMenu[key]:AddButton({
@@ -33,9 +31,10 @@ for key, prop in pairs(Config.Props2) do
             PreviewProp(propp.model)
         end)
     
-        -- Place prop when selecting menu item
+        -- Try to buy prop when selecting menu item
         subMenuItem:On('select', function()
-            TriggerServerEvent('ka-propmenu:server:BuyProp', propp.model, propp.price, propp.label)
+            local shopNumber = actualShop
+            TriggerServerEvent('ka-propmenu:server:BuyProp', propp.model, propp.price, propp.label, shopNumber)
         end)
     end
 
@@ -53,13 +52,9 @@ for key, prop in pairs(Config.Props2) do
             previewProp = nil
         end
     end)
-    
-    
-
 end
 
 RegisterNetEvent('ka-propmenu:client:OpenPropMenu2', function()
+    actualShop = nil
     menu2:Open()
 end)
-
-

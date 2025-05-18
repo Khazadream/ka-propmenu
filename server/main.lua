@@ -10,9 +10,19 @@ QBCore.Commands.Add('propcatlist_menu', 'Open Prop Menu', {}, false, function(so
     TriggerClientEvent('ka-propmenu:client:OpenPropMenu2', source)
 end, 'god')
 
-RegisterNetEvent('ka-propmenu:server:BuyProp', function(model, price, label)
+RegisterNetEvent('ka-propmenu:server:BuyProp', function(model, price, label, shopNumber)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
+
+    -- If the shop number is nil, it means the player is picking up a prop from the staff menu (no payment required)
+    if shopNumber == nil then
+        if exports.ox_inventory:AddItem(src, itemName, 1, {label = label, propName = model}) then
+            TriggerClientEvent('QBCore:Notify', src, 'Vous avez acheté un accessoire: ' .. label .. '.', 'success')
+        else
+            TriggerClientEvent('QBCore:Notify', src, 'Vous n\'avez pas assez d\'espace dans votre inventaire.', 'error')
+        end
+        return
+    end
 
     if exports.ox_inventory:RemoveItem(src, 'money', price) then
         if exports.ox_inventory:AddItem(src, itemName, 1, {label = label, propName = model}) then

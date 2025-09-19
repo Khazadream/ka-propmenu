@@ -2,7 +2,7 @@ Config = {}
 
 -- Config for the ped
 Config.PedModel = `a_m_m_business_01`
-Config.PedLocation = vector4(2761.31, 3495.36, 54.39, 252.56)
+Config.PedLocation = vector4(2762.26, 3495.33, 54.38, 244.84)
 
 -- Config for the target
 Config.TargetLabel = 'Achetez des Props'
@@ -352,6 +352,26 @@ Config.Props2 = {
         {label = 'Lampe trépied B',             model = 'xm_prop_base_tripod_lampb',       price = 400},
         {label = 'Lampe trépied C',             model = 'xm_prop_base_tripod_lampc',       price = 400},
         {label = 'Lampe de laboratoire B',      model = 'xm_prop_lab_tube_lampb',          price = 350},
+        -- Bzzz - Lampe trépied
+        {label = 'Lampe trépied - Bleu',      model = 'bzzz_dream_of_lights_blue',          price = 350},
+        {label = 'Lampe trépied - Verte',      model = 'bzzz_dream_of_lights_green',          price = 350},
+        {label = 'Lampe trépied - Orange',      model = 'bzzz_dream_of_lights_orange',          price = 350},
+        {label = 'Lampe trépied - Rose',      model = 'bzzz_dream_of_lights_pink',          price = 350},
+        {label = 'Lampe trépied - Violet',      model = 'bzzz_dream_of_lights_purple',          price = 350},
+        {label = 'Lampe trépied - Rouge',      model = 'bzzz_dream_of_lights_red',          price = 350},
+        {label = 'Lampe trépied - Blanc',      model = 'bzzz_dream_of_lights_white',          price = 350},
+        {label = 'Lampe trépied - Jaune',      model = 'bzzz_dream_of_lights_yellow',          price = 350},
+        -- Bzzz - Lampe trépied au sol
+        {label = 'Lampe trépied au sol - Bleu',      model = 'bzzz_world_of_lamps_blue',          price = 350},
+        {label = 'Lampe trépied au sol - Verte',      model = 'bzzz_world_of_lamps_green',          price = 350},
+        {label = 'Lampe trépied au sol - Orange',      model = 'bzzz_world_of_lamps_orange',          price = 350},
+        {label = 'Lampe trépied au sol - Rose',      model = 'bzzz_world_of_lamps_pink',          price = 350},
+        {label = 'Lampe trépied au sol - Violet',      model = 'bzzz_world_of_lamps_purple',          price = 350},
+        {label = 'Lampe trépied au sol - Rouge',      model = 'bzzz_world_of_lamps_red',          price = 350},
+        {label = 'Lampe trépied au sol - Blanc',      model = 'bzzz_world_of_lamps_white',          price = 350},
+        {label = 'Lampe trépied au sol - Jaune',      model = 'bzzz_world_of_lamps_yellow',          price = 350},
+        
+
     },
     ["Plantes"] = {
         {label = 'Plante',                      model = 'prop_plant_int_01a',              price = 250},
@@ -482,5 +502,52 @@ Config.Props2 = {
         {label = 'Poubelle CS 2',               model = 'prop_cs_bin_01_skinned',          price = 150},
         {label = 'Poubelle CS 3',               model = 'prop_cs_bin_03',                   price = 150},
         {label = 'Petite poubelle',             model = 'prop_gas_smallbin01',              price = 100},
+    },
+    ['Entreprise'] = {
+        {label = 'Présentoir - Greasy Joe\'s',             model = 'bzzz_chalkboards_1a',              price = 100},
+    },
+    ['Evénement'] = {
+        {label = 'Pâques - Pannier',                 model = 'bzzz_event_easter_basket_a',           price = 400},
+        {label = 'Pâques - Pannier avec des oeufs',  model = 'bzzz_event_easter_basket_b',           price = 400},
+        {label = 'Pâques - Lapin en chocolat',       model = 'bzzz_event_easter_bunny_a',            price = 400},
+        {label = 'Pâques - Oeuf - Vert',             model = 'bzzz_event_easter_egg_a',              price = 400},
+        {label = 'Pâques - Oeuf - Rose',             model = 'bzzz_event_easter_egg_b',              price = 400},
+        {label = 'Pâques - Oeuf - Jaune',            model = 'bzzz_event_easter_egg_c',              price = 400},
+        {label = 'Pâques - Oeuf - Bleu',             model = 'bzzz_event_easter_egg_d',              price = 400},
+        {label = 'Pâques - Oeuf - Bleu foncé',       model = 'bzzz_event_easter_egg_e',              price = 400},
+        -- Saint Valentine 24
+        {label = 'St Valentin - Set 1 - Banc 1',       model = 'bzzz_valentine24_bench_a',              price = 1500},
+        {label = 'St Valentin - Set 1 - Banc 2',       model = 'bzzz_valentine24_bench_b',              price = 1500},
+        {label = 'St Valentin - Set 1 - Banc 3',       model = 'bzzz_valentine24_bench_c',              price = 1500},
+        {label = 'St Valentin - Set 1 - Lumière 1',       model = 'bzzz_valentine24_light_a',              price = 500},
+        {label = 'St Valentin - Set 1 - Lumière 1',       model = 'bzzz_valentine24_light_b',              price = 500},
+        {label = 'St Valentin - Set 1 - Lumière 1',       model = 'bzzz_valentine24_light_c',              price = 500},
+        {label = 'St Valentin - Set 1 - L Rose',       model = 'bzzz_valentine24_pink_l',              price = 500},
+        {label = 'St Valentin - Set 1 - O Rose',       model = 'bzzz_valentine24_pink_o',              price = 500},
+        {label = 'St Valentin - Set 1 - V Rose',       model = 'bzzz_valentine24_pink_v',              price = 500},
+        {label = 'St Valentin - Set 1 - E Rose',       model = 'bzzz_valentine24_pink_e',              price = 500},
+        {label = 'St Valentin - Set 1 - L Rouge',       model = 'bzzz_valentine24_red_l',              price = 500},
+        {label = 'St Valentin - Set 1 - O Rouge',       model = 'bzzz_valentine24_red_o',              price = 500},
+        {label = 'St Valentin - Set 1 - V Rouge',       model = 'bzzz_valentine24_red_v',              price = 500},
+        {label = 'St Valentin - Set 1 - E Rouge',       model = 'bzzz_valentine24_red_e',              price = 500},
+        {label = 'St Valentin - Set 1 - L Bois',       model = 'bzzz_valentine24_wood_l',              price = 500},
+        {label = 'St Valentin - Set 1 - O Bois',       model = 'bzzz_valentine24_wood_o',              price = 500},
+        {label = 'St Valentin - Set 1 - V Bois',       model = 'bzzz_valentine24_wood_v',              price = 500},
+        {label = 'St Valentin - Set 1 - E Bois',       model = 'bzzz_valentine24_wood_e',              price = 500},
+        {label = 'St Valentin - Set 1 - Rose Orange',       model = 'bzzz_valentine24_rose_orange',    price = 500},
+        {label = 'St Valentin - Set 1 - Rose Rose',       model = 'bzzz_valentine24_rose_pink',        price = 500},
+        {label = 'St Valentin - Set 1 - Rose Jaune',       model = 'bzzz_valentine24_rose_yellow',     price = 500},
+        {label = 'St Valentin - Set 1 - Coeur rouge',       model = 'bzzz_valentine24_stone_red',     price = 500},
+        {label = 'St Valentin - Set 1 - Coeur Rose',       model = 'bzzz_valentine24_stone_pink',     price = 500},
+        {label = 'St Valentin - Set 1 - Coeur Bois',       model = 'bzzz_valentine24_stone_wood',     price = 500},
+        -- St Valentin - Set 2
+        {label = 'St Valentin - Set 2 - 01',       model = 'bzzz_love_valentines_beach_a',     price = 1500},
+        {label = 'St Valentin - Set 2 - 02',       model = 'bzzz_love_valentines_beach_b',     price = 1200},
+        {label = 'St Valentin - Set 2 - 03',       model = 'bzzz_love_valentines_beach_c',     price = 1500},
+        {label = 'St Valentin - Set 2 - 04',       model = 'bzzz_love_valentines_beach_d',     price = 500},
+        {label = 'St Valentin - Set 2 - 05',       model = 'bzzz_love_valentines_beach_e',     price = 500},
+        {label = 'St Valentin - Set 2 - 06',       model = 'bzzz_love_valentines_beach_f',     price = 500},
+        {label = 'St Valentin - Set 2 - 07',       model = 'bzzz_love_valentines_beach_g',     price = 500},
+        {label = 'St Valentin - Set 2 - 08',       model = 'bzzz_love_valentines_beach_h',     price = 500},
     },
 }

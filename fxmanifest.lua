@@ -7,6 +7,10 @@ version '0.0.1'
 
 lua54 'yes'
 
+shared_scripts {
+    '@ox_lib/init.lua',
+}
+
 client_scripts { 
     '@menuv/menuv.lua',
     'config.lua',

@@ -1,12 +1,22 @@
 menu2 = MenuV:CreateMenu(Config.MenuTitle, Config.MenuDescription, Config.MenuLocation, Config.MenutColorR, Config.MenutColorG, Config.MenutColorB, Config.MenuSize, Config.MenuFont, 'menuv', Config.MenuNamespace2)
 local subMenu = {}
 
+function GetSortPropCategories()
+    local sortedCategories = {}
+    for category, _ in pairs(Config.Props2) do
+        table.insert(sortedCategories, category)
+    end
+    table.sort(sortedCategories)
+    return sortedCategories
+end
+
 -- Create menu items for each prop
-for key, prop in pairs(Config.Props2) do
+for _, key in ipairs(GetSortPropCategories()) do
+    local props = Config.Props2[key]
     local menuItem2 = menu2:AddButton({
         icon = Config.MenuItemIcon,
         label = key,
-        value = prop,
+        value = props,
         description = Config.MenuItemDescription2 .. key
     })
 
@@ -20,7 +30,7 @@ for key, prop in pairs(Config.Props2) do
 
        
 
-    for _, propp in pairs(prop) do
+    for _, propp in ipairs(props) do
         local subMenuItem = subMenu[key]:AddButton({
             icon = Config.MenuItemIcon,
             label = propp.label .. ' - $' .. propp.price,
